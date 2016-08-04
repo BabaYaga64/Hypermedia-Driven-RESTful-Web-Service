@@ -1,6 +1,6 @@
 package hello;
 
-import static.org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -12,18 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 public class GreetingController {
 
-	private static final String TEMPLATE = "Hello %s!";
+    private static final String TEMPLATE = "Hello, %s!";
 
-	@RequestMapping("/greeting")
-	public HttpEntity<Greeting> greeting(
-			@RequestParam(value = "name", required = false, defaultValue = "World") String name) {
+    @RequestMapping("/greeting")
+    public HttpEntity<Greeting> greeting(
+            @RequestParam(value = "name", required = false, defaultValue = "World") String name) {
 
-		Greeting greeting = new Greeting(String.format(TEMPLATE, name));
-		greeting.add(linkTo(methodOn(GreetingController.class).greeting(name)).withSelfRel());
+        Greeting greeting = new Greeting(String.format(TEMPLATE, name));
+        greeting.add(linkTo(methodOn(GreetingController.class).greeting(name)).withSelfRel());
 
-		return new ResponseEntity<Greeting>(greeting, HttpStatus.OK);
-
-
-	}//Ends HttpEntity object
-
-}//Ends GreetingController class
+        return new ResponseEntity<Greeting>(greeting, HttpStatus.OK);
+    }
+}
